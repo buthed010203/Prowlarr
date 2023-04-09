@@ -52,13 +52,13 @@ namespace NzbDrone.Core.Indexers.BroadcastheNet
 
             var searchString = searchCriteria.SearchTerm != null ? searchCriteria.SearchTerm : "";
 
-            var btnResults = searchCriteria.Limit.GetValueOrDefault();
+            var btnResults = searchCriteria.Limit;
             if (btnResults == 0)
             {
                 btnResults = (int)Capabilities.LimitsDefault;
             }
 
-            var btnOffset = searchCriteria.Offset.GetValueOrDefault();
+            var btnOffset = searchCriteria.Offset;
 
             if (searchCriteria.TvdbId > 0)
             {
@@ -111,7 +111,7 @@ namespace NzbDrone.Core.Indexers.BroadcastheNet
 
             var searchString = searchCriteria.SearchTerm != null ? searchCriteria.SearchTerm : "";
 
-            var btnResults = searchCriteria.Limit.GetValueOrDefault();
+            var btnResults = searchCriteria.Limit;
             if (btnResults == 0)
             {
                 btnResults = (int)Capabilities.LimitsDefault;
@@ -119,7 +119,7 @@ namespace NzbDrone.Core.Indexers.BroadcastheNet
 
             parameters.Search = searchString.Replace(" ", "%");
 
-            var btnOffset = searchCriteria.Offset.GetValueOrDefault();
+            var btnOffset = searchCriteria.Offset;
 
             pageableRequests.Add(GetPagedRequests(parameters, btnResults, btnOffset));
 

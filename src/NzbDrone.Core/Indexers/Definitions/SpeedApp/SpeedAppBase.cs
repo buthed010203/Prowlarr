@@ -179,7 +179,7 @@ namespace NzbDrone.Core.Indexers.Definitions
         {
             var parameters = new NameValueCollection
             {
-                { "itemsPerPage", Math.Min(_pageSize, searchCriteria.Limit.GetValueOrDefault(_pageSize)).ToString() },
+                { "itemsPerPage", Math.Min(_pageSize, searchCriteria.Limit).ToString() },
                 { "sort", "torrent.createdAt" },
                 { "direction", "desc" }
             };

@@ -151,8 +151,8 @@ namespace NzbDrone.Core.Indexers.Definitions.Cardigann
             variables[".Query.Type"] = searchCriteria.SearchType;
             variables[".Query.Q"] = searchCriteria.SearchTerm;
             variables[".Query.Categories"] = searchCriteria.Categories;
-            variables[".Query.Limit"] = searchCriteria.Limit?.ToString() ?? null;
-            variables[".Query.Offset"] = searchCriteria.Offset?.ToString() ?? null;
+            variables[".Query.Limit"] = searchCriteria.Limit.ToString() ?? null;
+            variables[".Query.Offset"] = searchCriteria.Offset.ToString() ?? null;
             variables[".Query.Extended"] = null;
             variables[".Query.APIKey"] = null;
             variables[".Query.Genre"] = null;
@@ -1053,6 +1053,22 @@ namespace NzbDrone.Core.Indexers.Definitions.Cardigann
 
             variables[".Query.Keywords"] = string.Join(" ", keywordTokens);
             variables[".Keywords"] = ApplyFilters((string)variables[".Query.Keywords"], search.Keywordsfilters, variables);
+
+            var pageSize = search.PageSize;
+
+            if (pageSize > 0)
+            {
+                var page = (searchCriteria.Offset / pageSize) + search.FirstPageNumber;
+
+                variables[".PageSize"] = pageSize;
+                variables[".Query.Page"] = page;
+            }
+
+            if (pageSize == 0 && searchCriteria.Offset > 0)
+            {
+                // Indexer doesn't support pagination
+                yield break;
+            }
 
             // TODO: prepare queries first and then send them parallel
             var searchPaths = search.Paths;

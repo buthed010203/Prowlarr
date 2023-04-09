@@ -32,7 +32,7 @@ namespace NzbDrone.Core.Indexers.Definitions.Avistaz
             {
                 { "in", "1" },
                 { "type", categoryMapping.FirstIfSingleOrDefault("0") },
-                { "limit", Math.Min(PageSize, searchCriteria.Limit.GetValueOrDefault(PageSize)).ToString() }
+                { "limit", Math.Min(PageSize, searchCriteria.Limit).ToString() }
             };
 
             if (searchCriteria.Limit is > 0 && searchCriteria.Offset is > 0)
